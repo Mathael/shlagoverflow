@@ -26,6 +26,11 @@
             <version>6.5.1</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-queryparser</artifactId>
+            <version>6.5.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.shlagoverflow</groupId>
             <artifactId>core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
