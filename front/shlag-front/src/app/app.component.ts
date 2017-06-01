@@ -17,7 +17,6 @@ export class AppComponent {
   }
 
   doSearch(query:string) {
-    console.log('searching for : ' +query)
       this.search.do(query).subscribe(res => {
         this.results = res;
       })
