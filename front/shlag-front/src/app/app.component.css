@@ -1,0 +1,19 @@
+html,
+body {
+    height: 100%;
+}
+
+#flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 20%;
+    right: 0;
+    left: 0;
+}
+
+#flex-center input {
+    width: 600px;
+    font-size: 2em;
+}

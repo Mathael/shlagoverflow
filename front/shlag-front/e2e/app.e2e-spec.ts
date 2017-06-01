@@ -1,14 +1,16 @@
 import { ShlagFrontPage } from './app.po';
 
-describe('shlag-front App', function() {
+describe('shlag-front App', () => {
   let page: ShlagFrontPage;
 
   beforeEach(() => {
     page = new ShlagFrontPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', done => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    page.getParagraphText()
+      .then(msg => expect(msg).toEqual('Welcome to app!!'))
+      .then(done, done.fail);
   });
 });
