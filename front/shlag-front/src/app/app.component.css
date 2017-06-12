@@ -1,0 +1,15 @@
+html,
+body {
+    height: 100%;
+}
+
+#flex-center {}
+
+#flex-center div {
+    flex-direction: row;
+}
+
+#flex-center input {
+    width: 600px;
+    font-size: 2em;
+}

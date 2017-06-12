@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+app-root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 20%;
+    right: 0;
+    left: 0;
+}
