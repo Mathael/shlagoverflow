@@ -11,6 +11,7 @@ import java.util.Optional;
  * @author Leboc Philippe.
  */
 public interface TopicService extends DefaultService<Topic> {
-    Optional<Topic> create(UserAccount owner, String title, String content);
-    Optional<Topic> create(UserAccount owner, String title, String content, List<Tag> tags);
+    List<Topic> findAllMock();
+    Optional<Topic> create(String title, String content);
+    Optional<Topic> create(String title, String content, List<Tag> tags);
 }

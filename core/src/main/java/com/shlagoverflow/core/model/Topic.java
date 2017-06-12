@@ -21,9 +21,6 @@ public class Topic {
     @Id
     private String id;
 
-    @DBRef(lazy = true)
-    private UserAccount owner;
-
     private String title;
 
     private String content;
@@ -36,11 +33,11 @@ public class Topic {
     @DBRef(lazy = true)
     private List<TopicAnswer> answers;
 
-    public Topic(UserAccount owner, String title, String content) {
-        this(owner, title, content, new ArrayList<>());
+    public Topic(String title, String content) {
+        this(title, content, new ArrayList<>());
     }
 
-    public Topic(UserAccount owner, String title, String content, List<Tag> tags) {
-        this(null, owner, title, content, Utils.getCurrentTime(), tags, new ArrayList<>());
+    public Topic(String title, String content, List<Tag> tags) {
+        this(null, title, content, Utils.getCurrentTime(), tags, new ArrayList<>());
     }
 }
