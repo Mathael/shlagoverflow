@@ -3,10 +3,13 @@
         <h1>ShlagOverflow</h1>
     </div>
     <div>
-
         <md-input-container class="example-full-width">
             <input mdInput placeholder="Rercherche" #query (keyup)="doSearch(query.value)">
         </md-input-container>
-        <div id="results"></div>
+        <div id="results">
+            <div *ngFor="let r of results">
+                {{ r.score }} : {{ r.title }}
+            </div>
+        </div>
     </div>
 </div>

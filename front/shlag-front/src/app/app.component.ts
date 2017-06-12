@@ -1,27 +1,22 @@
-import { Question } from './model/question';
-import { SearchService } from './services/search.service';
-import { Component } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Question} from './model/question';
+import {SearchService} from './services/search.service';
+import {Component} from '@angular/core';
+import {Subject} from 'rxjs';
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-  searchTerm:Subject<string> = new Subject<string>();
-  results: Question[] = [];
+    title = 'app';
+    searchTerm: Subject<string> = new Subject<string>();
+    results: Question[] = [];
 
-  constructor(private search: SearchService) {
+    constructor(private search: SearchService) {}
 
-  }
-
-  doSearch(query:string) {
-      this.search.do(query).subscribe(res => {
-        this.results = res;
-      })
-  }
-
-
-
+    doSearch(query: string) {
+        this.search.do(query).subscribe(res => {
+            this.results = res;
+        })
+    }
 }
