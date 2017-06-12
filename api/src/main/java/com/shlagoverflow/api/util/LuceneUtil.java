@@ -1,5 +1,6 @@
 package com.shlagoverflow.api.util;
 
+import com.shlagoverflow.core.dto.TopicDto;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -42,19 +43,19 @@ public class LuceneUtil {
 
     public void indexTitle(String title) {
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
-        IndexWriter w = null;
+        IndexWriter w;
         try
         {
             w = new IndexWriter(index, config);
             addDoc(w, title);
             w.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Lucene Indexing exception: ", e);
         }
     }
 
-    public List<String> search(String queryStr) {
-        List<String> correspondance = new ArrayList<>();
+    public List<TopicDto> search(String queryStr) {
+        List<TopicDto> correspondance = new ArrayList<>();
         try {
             // the "title" arg specifies the default field to use
             // when no field is explicitly specified in the query.
@@ -72,7 +73,8 @@ public class LuceneUtil {
             for (int i = 0; i < hits.length; ++i) {
                 int docId = hits[i].doc;
                 final Document d = searcher.doc(docId);
-                correspondance.add(d.get("title"));
+                correspondance.add(new TopicDto(d.get("title"), null, hits[0].score));
+
             }
 
             // reader can only be closed when there

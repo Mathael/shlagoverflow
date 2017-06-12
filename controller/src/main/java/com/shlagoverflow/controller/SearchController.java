@@ -1,6 +1,7 @@
 package com.shlagoverflow.controller;
 
 import com.shlagoverflow.api.util.LuceneUtil;
+import com.shlagoverflow.core.dto.TopicDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public class SearchController {
 
     @RequestMapping(value = "/{searchStr}", method = RequestMethod.GET)
-    public List<String> search(@PathVariable(value = "searchStr") String searchStr) {
+    public List<TopicDto> search(@PathVariable(value = "searchStr") String searchStr) {
         return LuceneUtil.getInstance().search(searchStr);
     }
 }
