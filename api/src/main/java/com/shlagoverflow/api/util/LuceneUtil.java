@@ -1,6 +1,7 @@
 package com.shlagoverflow.api.util;
 
 import com.shlagoverflow.core.dto.TopicDto;
+import com.shlagoverflow.core.model.Question;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -41,13 +42,16 @@ public class LuceneUtil {
 
     private LuceneUtil() {}
 
-    public void indexTitle(String title) {
-        IndexWriterConfig config = new IndexWriterConfig(analyzer);
-        IndexWriter w;
+    public void index(Question question) {
+        final IndexWriterConfig config = new IndexWriterConfig(analyzer);
+        final IndexWriter w;
         try
         {
             w = new IndexWriter(index, config);
-            addDoc(w, title);
+            final Document doc = new Document();
+            doc.add(new TextField("title", question.getTitle(), Field.Store.YES));
+            doc.add(new TextField("answer", question.getAnswer(), Field.Store.YES));
+            w.addDocument(doc);
             w.close();
         } catch (IOException e) {
             LOGGER.error("Lucene Indexing exception: ", e);
@@ -55,42 +59,52 @@ public class LuceneUtil {
     }
 
     public List<TopicDto> search(String queryStr) {
-        List<TopicDto> correspondance = new ArrayList<>();
+        List<TopicDto> questions = new ArrayList<>();
         try {
             // the "title" arg specifies the default field to use
             // when no field is explicitly specified in the query.
             final Query q = new QueryParser("title", analyzer).parse(queryStr);
+            final Query a = new QueryParser("answer", analyzer).parse(queryStr);
 
             // 3. search
             int hitsPerPage = 10;
-            IndexReader reader = DirectoryReader.open(index);
-            IndexSearcher searcher = new IndexSearcher(reader);
-            TopDocs docs = searcher.search(q, hitsPerPage);
-            ScoreDoc[] hits = docs.scoreDocs;
+            final IndexReader reader = DirectoryReader.open(index);
+            final IndexSearcher searcher = new IndexSearcher(reader);
+
+            // Recherche dans les titres
+            final TopDocs docs = searcher.search(q, hitsPerPage);
+            final ScoreDoc[] hits = docs.scoreDocs;
+
+            // Recherche dans les réponses aux questions
+            final TopDocs docsAnswers = searcher.search(a, hitsPerPage);
+            final ScoreDoc[] hitsAnswers = docsAnswers.scoreDocs;
+
+            System.out.println(hits.length);
+            System.out.println(hitsAnswers.length);
 
             // 4. display results
-            LOGGER.info(String.format("%s %d %s", "Found ", hits.length, " hits."));
-            for (int i = 0; i < hits.length; ++i) {
-                int docId = hits[i].doc;
-                final Document d = searcher.doc(docId);
-                correspondance.add(new TopicDto(d.get("title"), null, hits[0].score));
+            LOGGER.info(String.format("%s %d %s", "Found ", hits.length, " questions hits."));
 
+            for (int i = 0; i < hits.length; i++) {
+                final int docId = hits[i].doc;
+                final Document d = searcher.doc(docId);
+                questions.add(new TopicDto(d.get("title"), d.get("answer"), hits[i].score));
+            }
+
+            LOGGER.info(String.format("%s %d %s", "Found ", hits.length, " answers hits."));
+            for (int i = 0; i < hitsAnswers.length; i++) {
+                final int docId = hitsAnswers[i].doc;
+                final Document d = searcher.doc(docId);
+                questions.add(new TopicDto(d.get("title"), d.get("answer"), hitsAnswers[i].score));
             }
 
             // reader can only be closed when there
             // is no need to access the documents any more.
             reader.close();
-
         }catch(Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Search Exception: " + questions.size(), e);
         }
 
-        return correspondance;
-    }
-
-    private static void addDoc(IndexWriter w, String title) throws IOException {
-        Document doc = new Document();
-        doc.add(new TextField("title", title, Field.Store.YES));
-        w.addDocument(doc);
+        return questions;
     }
 }

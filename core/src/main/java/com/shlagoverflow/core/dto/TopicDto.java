@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TopicDto {
     private String title;
-    private String content;
+    private String answer;
     private float score;
 }

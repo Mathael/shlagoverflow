@@ -10,7 +10,7 @@ import {Subject} from 'rxjs';
 export class AppComponent {
     title = 'app';
     searchTerm: Subject<string> = new Subject<string>();
-    results: Question[] = [];
+    results: any[] = [];
 
     constructor(private search: SearchService) {}
 

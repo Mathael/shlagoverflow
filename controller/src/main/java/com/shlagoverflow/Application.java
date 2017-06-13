@@ -26,9 +26,8 @@ public class Application {
 
         LOGGER.info("Indexing data...");
         final LuceneUtil lucene = LuceneUtil.getInstance();
-        DataParser.getInstance().getQuestions().forEach(lucene::indexTitle);
+        DataParser.getInstance().getQuestions().forEach(lucene::index);
         LOGGER.info(String.format("%s %d %s", "Indexed ", DataParser.getInstance().getQuestions().size(), " entries with Lucene."));
-
 
         SpringApplication.run(Application.class, args);
     }

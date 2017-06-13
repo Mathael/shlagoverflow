@@ -1,5 +1,6 @@
 package com.shlagoverflow.api.util;
 
+import com.shlagoverflow.core.model.Question;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -22,7 +23,7 @@ public final class DataParser {
 
     private static Logger LOGGER = LoggerFactory.getLogger(DataParser.class);
 
-    private List<String> questions = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
 
     public static DataParser getInstance() {
         return instance;
@@ -37,12 +38,21 @@ public final class DataParser {
             reader = new FileReader("scripts/output.json");
             buffer = new BufferedReader(reader);
             String line;
+            Question question = null;
 
             while((line = buffer.readLine()) != null) {
                 // Parse this line to JSON
                 final JSONObject json = (JSONObject) jsonParser.parse(line);
-                final String l = (String) json.get("question");
-                if(l != null) questions.add(l);
+                final String title = (String) json.get("question");
+                final String answer = (String) json.get("answer");
+                //final long answerUnixTime = (Long) json.containsKey("unixTime");
+
+                if(title != null) question = new Question(title);
+                if(question != null) {
+                    if(answer != null) question.setAnswer(answer);
+                    //question.setAnswerUnixTime(answerUnixTime);
+                    questions.add(question);
+                }
             }
 
         } catch (IOException | ParseException e) {
@@ -57,11 +67,11 @@ public final class DataParser {
         }
     }
 
-    public List<String> getQuestions() {
+    public List<Question> getQuestions() {
         return this.questions;
     }
 
     public static void main(String... args) {
-        getInstance().questions.forEach(LOGGER::info);
+        getInstance().questions.forEach(q -> LOGGER.info(String.format("%s : %s", q.getTitle(), q.getAnswer())));
     }
 }
