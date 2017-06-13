@@ -22,7 +22,7 @@ public class SearchController {
                 .getInstance()
                 .search(searchStr)
                 .stream()
-                .sorted(Comparator.comparing(TopicDto::getScore))
+                .sorted(Comparator.comparing(TopicDto::getScore).reversed())
                 .collect(Collectors.toList());
     }
 }
