@@ -20,6 +20,5 @@ Ensuite, installer la dépendance Angular CLI :
 - Executez `npm run start`
 - Accedez à l'application : [http://localhost:4200/](http://localhost:4200/)
 
-## Alternative 
 
 
