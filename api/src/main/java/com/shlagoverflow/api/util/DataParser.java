@@ -35,7 +35,7 @@ public final class DataParser {
         final JSONParser jsonParser = new JSONParser();
 
         try {
-            reader = new FileReader("scripts/output.json");
+            reader = new FileReader("data/amazon_dataset.json");
             buffer = new BufferedReader(reader);
             String line;
             Question question = null;
