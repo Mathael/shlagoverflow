@@ -1,6 +1,13 @@
 # ShlagOverflow 
 
+## Lancement du Back
 
+Dans la console, se rendre dans le dossier racine du projet `/`
+
+Executer la commande :  `java -jar shlagoverflow-0.0.1-SNAPSHOT.jar`
+
+L'indexation du dataset peut prendre quelques minutes. 
+En attendant, il faut lancer le client front. 
 ## Lancement du Front
 
 Vous trouverez ci dessous la procédure pour lancer l'application front en local. 
