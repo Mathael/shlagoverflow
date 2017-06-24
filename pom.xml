@@ -29,9 +29,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<spring-boot-starter-mongodb-version>1.5.2.RELEASE</spring-boot-starter-mongodb-version>
-        <swagger2.version>2.6.1</swagger2.version>
-        <swagger2-ui.version>2.6.1</swagger2-ui.version>
 	</properties>
 
 	<dependencies>
@@ -50,11 +47,11 @@
             <artifactId>lucene-core</artifactId>
             <version>6.5.1</version>
         </dependency>
-        <!-- Test -->
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
 		</dependency>
 	</dependencies>
 
@@ -76,23 +73,5 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 
 </project>

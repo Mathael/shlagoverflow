@@ -70,8 +70,4 @@ public final class DataParser {
     public List<Question> getQuestions() {
         return this.questions;
     }
-
-    public static void main(String... args) {
-        getInstance().questions.forEach(q -> LOGGER.info(String.format("%s : %s", q.getTitle(), q.getAnswer())));
-    }
 }
