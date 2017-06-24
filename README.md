@@ -14,9 +14,12 @@ Vous trouverez ci dessous la procédure pour lancer l'application front en local
 
 ### Dépendances
 
-Avoir NodeJs > 6.9.* et npm > 3.0
+Pour lancer le client front, vous aurez besoin de Nodejs.
+(NodeJs > 6.9.* et npm > 3.0)
 
 Lien pour l'installation : https://nodejs.org/en/
+
+Si vous utilisé Windows, pensé à redémarrer après l'installation de Nodejs
 
 Ensuite, installer la dépendance Angular CLI :
 `npm install -g @angular/cli`
