@@ -79,11 +79,8 @@ public class LuceneUtil {
             final TopDocs docsAnswers = searcher.search(a, hitsPerPage);
             final ScoreDoc[] hitsAnswers = docsAnswers.scoreDocs;
 
-            System.out.println(hits.length);
-            System.out.println(hitsAnswers.length);
-
             // 4. display results
-            LOGGER.info(String.format("%s %d %s", "Found ", hits.length, " questions hits."));
+            // LOGGER.info(String.format("%s %d %s", "Found ", hits.length, " questions hits."));
 
             for (int i = 0; i < hits.length; i++) {
                 final int docId = hits[i].doc;
@@ -91,7 +88,7 @@ public class LuceneUtil {
                 questions.add(new TopicDto(d.get("title"), d.get("answer"), hits[i].score));
             }
 
-            LOGGER.info(String.format("%s %d %s", "Found ", hits.length, " answers hits."));
+            //LOGGER.info(String.format("%s %d %s", "Found ", hits.length, " answers hits."));
             for (int i = 0; i < hitsAnswers.length; i++) {
                 final int docId = hitsAnswers[i].doc;
                 final Document d = searcher.doc(docId);
